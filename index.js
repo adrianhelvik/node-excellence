@@ -68,6 +68,9 @@ function parseCsvRow(row) {
 function parseCsvCell(cell) {
   let result = [];
   let isString = false;
+  if (typeof cell === 'number') {
+    return cell;
+  }
   for (let i = 0; i < cell.length; i++) {
     const letter = cell[i];
     const nextletter = cell[i + 1];

@@ -53,5 +53,14 @@ describe('excellence', () => {
       const expected = '"a","""b"""\n"c","d"';
       assert.equal(actual, expected);
     });
+
+    it('handles numeric values', () => {
+      const actual = excellence.csv([
+        [1, 2, 3],
+        [444]
+      ]);
+      const expected = '1,2,3\n444';
+      assert.equal(actual, expected);
+    });
   });
 });
