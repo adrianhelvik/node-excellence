@@ -5,7 +5,14 @@ Installation
 Usage
 =====
 ```javascript
-const excelString = excellence([
+const excellence = require('excellence');
+
+const xml = excellence.xml([
+    ['this', 'is', 'the', 'first', 'row'],
+    ['this', 'is', 'the', 'second', 'row']
+]);
+
+const csv = excellence.csv([
     ['this', 'is', 'the', 'first', 'row'],
     ['this', 'is', 'the', 'second', 'row']
 ]);

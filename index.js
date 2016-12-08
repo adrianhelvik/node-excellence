@@ -1,6 +1,7 @@
-module.exports = excellence;
+module.exports = { csv, xml };
+module.exports.csv = csv;
 
-function excellence(options) {
+function xml(options) {
   if (Array.isArray(options)) {
     options = { data: options };
   }
@@ -41,7 +42,50 @@ function excellence(options) {
   return precontent.concat(content).concat(postcontent).join('');
 }
 
+function csv(options) {
+  if (Array.isArray(options)) {
+    options = { data: options };
+  }
+  const { data } = options;
+
+  let rows = []
+
+  for (const row of data) {
+    rows.push(parseCsvRow(row));
+  }
+
+  return rows.join('\n');
+}
+
+function parseCsvRow(row) {
+  let result = [];
+  for (const cell of row) {
+    result.push(parseCsvCell(cell));
+  }
+  return result.join(',');
+}
+
+function parseCsvCell(cell) {
+  let result = [];
+  let isString = false;
+  for (let i = 0; i < cell.length; i++) {
+    const letter = cell[i];
+    const nextletter = cell[i + 1];
+    const prevletter = cell[i - 1];
+
+    // Escape quotes
+    if (letter === '"') {
+      result.push('"'); // add an extra quote
+    }
+
+    // Add letters
+    result.push(letter);
+  }
+
+  return '"' + result.join('') + '"';
+}
+
 if (require.main === module) {
   const json = process.argv[2];
-  console.log(excellence(JSON.parse(json)));
+  console.log(xml(JSON.parse(json)));
 }
