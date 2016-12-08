@@ -71,9 +71,7 @@ function parseCsvCell(cell) {
   if (typeof cell === 'number') {
     return cell;
   }
-  if (typeof cell !== 'string') {
-    throw Error('Expected string or number for cell!');
-  }
+  cell = String(cell);
   for (let i = 0; i < cell.length; i++) {
     const letter = cell[i];
     const nextletter = cell[i + 1];

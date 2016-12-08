@@ -62,5 +62,22 @@ describe('excellence', () => {
       const expected = '1,2,3\n444';
       assert.equal(actual, expected);
     });
+
+    it('handles non strings', () => {
+      class Id {
+        constructor(value) {
+          this.value = value;
+        }
+        toString() {
+          return this.value;
+        }
+      }
+      let funkyString = new Id('1234');
+      const actual = excellence.csv([
+        [funkyString]
+      ]);
+      const expected = '"1234"';
+      assert.equal(actual, expected);
+    })
   });
 });
